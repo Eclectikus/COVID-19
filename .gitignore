@@ -1,0 +1,23 @@
+# R
+*.Rproj
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.Rmd
+# knitr and R markdown default cache directories
+/*_cache/
+/cache/
+blogdown
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
+# Other files
+.vscode/
+*.code-workspace
+_aux
+.~lock*
+#Hugo
+blogdown
+public
+*.Rmd
