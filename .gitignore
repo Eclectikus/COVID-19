@@ -4,7 +4,7 @@
 .Rhistory
 .RData
 .Ruserdata
-.Rmd
+*.Rmd
 # knitr and R markdown default cache directories
 /*_cache/
 /cache/
@@ -20,4 +20,3 @@ _aux
 #Hugo
 blogdown
 public
-*.Rmd
