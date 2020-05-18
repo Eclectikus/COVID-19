@@ -19,7 +19,7 @@ En este repositorio ([COVID-19/data/](https://github.com/Eclectikus/COVID-19/tre
 
 - **`Serie temporal`**: Este archivo se pude descargar o consultar en [COVID-19/data/st.csv](https://github.com/Eclectikus/COVID-19/blob/master/data/st.csv). Son los datos extraídos de las tablas anteriores, o más apropiadamente la compilación de todos ellos en un solo fichero (**`st.csv`**), que podría no estar en el formato ideal para su tratamiento dependiendo de la configuración de tu entorno de *software*. Por ejemplo para transformar el archivo a un formato amigable para procesar datos de *series de tiempo* en **`R`** se puede utilizar el siguiente código:
 
-~~~~
+~~~~R
 sturl <- "https://raw.githubusercontent.com/Eclectikus/COVID-19/master/data/st.csv"
 stt <- read.csv(sturl, encoding = "UTF-8")
 
