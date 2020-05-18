@@ -6,9 +6,9 @@
 
 Datos públicos sobre la epidemia de Coronavirus COVID-19 recolectados para su proceso y visualización en **noSoloDatos**:
 
-||
-|:--:|
-| [**Seguimiento del COVID-19**](https://nosolodatos.netlify.com/es/covid19/coronavirus) |
+<center>
+[**Seguimiento del COVID-19**](https://nosolodatos.netlify.com/es/covid19/coronavirus)
+</center>
 
 En este repositorio ([COVID-19/data/](https://github.com/Eclectikus/COVID-19/tree/master/data)) puedes descargar y/o consultar los siguientes archivos:
 
