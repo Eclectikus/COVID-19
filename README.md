@@ -33,4 +33,8 @@ stt$Fecha <- as.Date(as.character(stt$Fecha), "%d/%m/%y")
 
 ---
 
+El **`Mapa`** que se utiliza (en formato **`geojson`**) puede ser consultado o descargado en el directorio [COVID-19/mapa/](https://github.com/Eclectikus/COVID-19/tree/master/mapa). La codificación para las CCAA se puede ver en [COVID-19/mapa/codifCCAAgeojson.csv](https://github.com/Eclectikus/COVID-19/blob/master/mapa/codifCCAAgeojson.csv).
+
+---
+
 Para consultar las series temporales proporcionadas por el **Centro de Ciencia de Ingeniería y Sistemas de la Universidad Johns Hopkins** visita [este otro repositorio](https://github.com/Eclectikus/jhutimeseries).
