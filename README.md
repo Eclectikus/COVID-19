@@ -22,8 +22,10 @@ En este repositorio ([COVID-19/data/](https://github.com/Eclectikus/COVID-19/tre
 ~~~~
 sturl <- "https://raw.githubusercontent.com/Eclectikus/COVID-19/master/data/st.csv"
 stt <- read.csv(sturl, encoding = "UTF-8")
-stt$IA <- as.numeric(as.character(stt$IA)) # Convierte en numéricos los valores del IA (importadas originalmente como texto)
-stt$Fecha <- as.Date(as.character(stt$Fecha), "%d/%m/%y") # Cambia la columna de fechas (originalmente texto) al formato de fecha utilizado por R
+# Convierte en numéricos los valores del IA (importadas originalmente como texto):
+stt$IA <- as.numeric(as.character(stt$IA))
+# Cambia la columna de fechas (originalmente texto) al formato de fecha utilizado por R:
+stt$Fecha <- as.Date(as.character(stt$Fecha), "%d/%m/%y")
 
 ~~~~
 
