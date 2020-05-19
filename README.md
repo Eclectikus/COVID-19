@@ -10,7 +10,7 @@ Datos públicos oficiales sobre la epidemia de Coronavirus COVID-19 recolectados
 
 ---
 
-En este repositorio ([COVID-19/data/](https://github.com/Eclectikus/COVID-19/tree/master/data)) puedes descargar y/o consultar los siguientes archivos:
+En este repositorio ([COVID-19/data/](https://github.com/Eclectikus/COVID-19/tree/master/data)) se pueden descargar y/o consultar los siguientes archivos:
 
 - **`PDFs`**: Todos los informes diarios originales publicados por el *`Ministerio de Sanidad`*:
   - *Actualizacion_xx_COVID-19.pdf* **>**  Desde la actualización **`37`** correspondiente al **`5`** de **`marzo`** a la **`99`** del **`8`** de **`mayo`**.
