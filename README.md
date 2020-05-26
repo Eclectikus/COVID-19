@@ -51,8 +51,10 @@ stt$Fecha <- as.Date(as.character(stt$Fecha), "%d/%m/%y")
 
 Los **`Mapas`** utilizados (en formato **`geojson`**) pueden ser consultados o descargados en el directorio [COVID-19/map/](https://github.com/Eclectikus/COVID-19/tree/master/map).
 
-- **`Comunidades Autónomas`**: [COVID-19/map/ccaa.geojson](https://github.com/Eclectikus/COVID-19/blob/master/map/ccaa.geojson). La codificación para las *CCAA* se puede ver en [COVID-19/map/codifCCAAgeojson.csv](https://github.com/Eclectikus/COVID-19/blob/master/map/codifCCAAgeojson.csv).
-- **`Provincias`**: [COVID-19/map/prov.geojson](https://github.com/Eclectikus/COVID-19/blob/master/map/prov.geojson). La codificación para las *provincias* se puede ver en [COVID-19/map/ 	codifPROVgeojson.csv](https://github.com/Eclectikus/COVID-19/blob/master/map/codifPROVgeojson.csv).
+- **`Comunidades Autónomas`**: [COVID-19/map/ccaa.geojson](https://github.com/Eclectikus/COVID-19/blob/master/map/ccaa.geojson).
+  - La codificación para las *CCAA* se puede consultar en [COVID-19/map/codifCCAAgeojson.csv](https://github.com/Eclectikus/COVID-19/blob/master/map/codifCCAAgeojson.csv).
+- **`Provincias`**: [COVID-19/map/prov.geojson](https://github.com/Eclectikus/COVID-19/blob/master/map/prov.geojson).
+  - La codificación para las *provincias* se puede consultar en [COVID-19/map/ 	codifPROVgeojson.csv](https://github.com/Eclectikus/COVID-19/blob/master/map/codifPROVgeojson.csv). Aunque se utilizan los topónimos en castellano, la nomenclatura en las lenguas cooficiales se incluye también en el fichero **`geojson`**.
 
 ---
 
