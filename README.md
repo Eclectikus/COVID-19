@@ -58,4 +58,4 @@ Los **`Mapas`** utilizados (en formato **`geojson`**) pueden ser consultados o d
 
 ## Datos globales
 
-Para consultar las series temporales proporcionadas por el **Centro de Ciencia de Ingeniería y Sistemas de la Universidad Johns Hopkins** visita [este otro repositorio](https://github.com/Eclectikus/jhutimeseries) y [esta página](https://eclectikus.github.io/jhutimeseries/).
+Para consultar las series temporales proporcionadas por el **Centro de Ciencia de Ingeniería y Sistemas de la Universidad Johns Hopkins** visita [este otro repositorio](https://github.com/Eclectikus/jhutimeseries) y/o [esta página](https://eclectikus.github.io/jhutimeseries/).
