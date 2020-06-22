@@ -37,6 +37,8 @@ stt$IA <- as.numeric(as.character(stt$IA))
 # Cambia la columna de fechas (originalmente texto) al formato de fecha utilizado por R:
 stt$Fecha <- as.Date(as.character(stt$Fecha), "%d/%m/%y")
 
+~~~~
+
 ### Seroprevalencia
 
 **Estudio Nacional de sero-Epidemiología de la infección por SARS-CoV-2 en España (ENE-Covid19)**
