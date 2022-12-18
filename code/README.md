@@ -2,7 +2,7 @@
 
 > :information_source: Los 3 primeros meses de pandemia digitalizados.  
 
-> :warning: El código (`R`, `R Markdown`, `JavaScript`...) fue actualizado diariamente entre el 5 de marzo y el 5 de junio de 2020, y no ha sido mantenido desde entonces (aunque siguen siendo funcionales).
+> :warning: El código (`R Markdown`) fue actualizado diariamente entre el 5 de marzo y el 5 de junio de 2020, y no ha sido mantenido desde entonces (aunque sigue siendo funcional).
 
 > :information_source: Se incluyen además los ficheros `html` generados.
 
