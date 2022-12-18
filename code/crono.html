@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html lang="es-Es" xml:lang="es-Es">
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="noSoloDatos" />
+
+
+<title>Cronología de la pandemia</title>
+
+<script src="crono_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="crono_files/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="crono_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="crono_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="crono_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="crono_files/navigation-1.1/tabsets.js"></script>
+<script src="crono_files/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="crono_files/vis-4.16.1/vis.min.css" rel="stylesheet" />
+<script src="crono_files/vis-4.16.1/vis.min.js"></script>
+<link href="crono_files/timeline-0.4/timevis.css" rel="stylesheet" />
+<script src="crono_files/timevis-binding-0.5/timevis.js"></script>
+<link rel="shortcut icon" href="img/favicon.ico">
+<meta property="og:title" content="Cronología de la pandemia">
+<meta property="og:description"
+    content="Cronología interactiva de la pandemia en España y en el Mundo.">
+<meta property="og:image" content="https://raw.githubusercontent.com/Eclectikus/COVID-19/master/img/covid19.png">
+<meta property="og:url" content="https://nosolodatos.netlify.com/es/covid19/crono">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@scienceisbeauty">
+<meta name="twitter:creator" content="@scienceisbeauty">
+<meta name="twitter:title" content="Seguimiento del coronavirus SARS-CoV-2 en España y en el mundo">
+<meta name="twitter:description"
+    content="Cronología interactiva de la pandemia en España y en el Mundo.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Eclectikus/COVID-19/master/img/covid19.png">
+<script src="https://kit.fontawesome.com/e94903b8e8.js" crossorigin="anonymous"></script>
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Cronología de la pandemia</h1>
+<h4 class="author"><a href="https://nosolodatos.netlify.com/">noSoloDatos</a></h4>
+
+</div>
+
+
+<style type="text/css">
+  
+  .vis-item.hitc { 
+    color: black;
+    background-color: DodgerBlue;
+    border-color: DodgerBlue }
+  .vis-item.hitc.vis-selected { background-color: Azure; }
+  
+  .vis-item.omsc {
+    color: black;
+    background-color: LimeGreen;
+    border-color: LimeGreen }
+  .vis-item.omsc.vis-selected { background-color: Azure; }
+  
+  .vis-item.espc {
+    color: black;
+    background-color: OrangeRed;
+    border-color: OrangeRed }
+  .vis-item.espc.vis-selected { background-color: Azure; }
+  
+  .vis-time-axis.vis-foreground { background-color: Aqua; }
+  
+  .vis-panel.vis-left {
+    font-weight: bold;
+    background-color: AliceBlue; }
+
+</style>
+<div id="a-vista-de-pájaro" class="section level2">
+<h2>A vista de pájaro</h2>
+<p>Este gráfico sólo muestra los principales hechos durante esta crisis epidemiológica, y sirve sólo para tener una visión general de la pandemia. Para profundizar se pueden consultar los enlaces de la sección siguiente.</p>
+<div id="htmlwidget-bd7a8a578cdf69484ca6" class="timevis html-widget" style="width:100%;height:480px;">
+<div class="btn-group zoom-menu">
+<button type="button" class="btn btn-default btn-lg zoom-in" title="Zoom in">+</button>
+<button type="button" class="btn btn-default btn-lg zoom-out" title="Zoom out">-</button>
+</div>
+</div>
+<script type="application/json" data-for="htmlwidget-bd7a8a578cdf69484ca6">{"x":{"items":[{"id":"1","content":"Primer caso confirmado (Wuhan)","start":"2019-11-17","group":"hit","className":"hitc"},{"id":"2","content":"Cluster de neumonía en Wuhan","start":"2019-12-31","group":"hit","className":"hitc"},{"id":"3","content":"Primer fallecido en China","start":"2020-01-11","group":"hit","className":"hitc"},{"id":"4","content":"Secuenciación del genoma","start":"2020-01-12","group":"hit","className":"hitc"},{"id":"5","content":"Evidencias de transmisión entre humanos","start":"2020-01-22","group":"hit","className":"hitc"},{"id":"6","content":"Confinamiento en Hubei","start":"2020-01-23","end":"2020-04-8","group":"hit","className":"hitc"},{"id":"7","content":"Primer test PCR (Malasia)","start":"2020-01-24","group":"hit","className":"hitc"},{"id":"8","content":"Primer fallecido fuera de China","start":"2020-02-2","group":"hit","className":"hitc"},{"id":"9","content":"Nombre oficial del virus/enfermedad: SARS-CoV-2/COVID-19","start":"2020-02-11","group":"hit","className":"hitc"},{"id":"10","content":"Primer comité de emergencia","start":"2020-01-23","group":"oms","className":"omsc"},{"id":"11","content":"2º comité de emergencia","start":"2020-01-30","group":"oms","className":"omsc"},{"id":"12","content":"Declaración de pandemia","start":"2020-03-11","group":"oms","className":"omsc"},{"id":"13","content":"Primer caso confirmado","start":"2020-01-31","group":"esp","className":"espc"},{"id":"14","content":"Se suspende el MWC","start":"2020-02-12","group":"esp","className":"espc"},{"id":"15","content":"Primer fallecido","start":"2020-02-13","group":"esp","className":"espc"},{"id":"16","content":"8M","start":"2020-03-8","group":"esp","className":"espc"},{"id":"17","content":"Declaración de Estado de Alarma","start":"2020-03-13","group":"esp","className":"espc"},{"id":"18","content":"Confinamiento en España","start":"2020-03-14","end":"2020-06-20","group":"esp","className":"espc"}],"groups":[{"id":"hit","content":"Hitos"},{"id":"oms","content":"OMS"},{"id":"esp","content":"España"}],"showZoom":true,"zoomFactor":0.5,"fit":true,"options":{"showCurrentTime":false,"orientation":"both","selectable":true,"clickToUse":true,"showWeekScale":true},"height":null,"api":[]},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="enlaces" class="section level2">
+<h2>Enlaces</h2>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
