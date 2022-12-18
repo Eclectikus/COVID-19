@@ -2,6 +2,8 @@
 
 ![2019_nCoV](https://github.com/Eclectikus/COVID-19/blob/master/img/2019_nCoV600x.png "2019_nCoV")
 
+> :information_source: [Código - RMarkdown/HTML](https://github.com/Eclectikus/COVID-19/tree/master/code).
+
 # COVID-19
 
 Datos públicos oficiales sobre la epidemia de Coronavirus COVID-19 recolectados para su proceso y visualización en **`noSoloDatos`**:
