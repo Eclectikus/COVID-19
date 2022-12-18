@@ -1,0 +1,143 @@
+---
+title: "Cronología de la pandemia"
+author:
+- "[noSoloDatos](https://nosolodatos.netlify.com/)"
+lang: es-Es
+output:
+  html_document:
+    theme: paper
+    highlight: breezedark
+    self_contained: false
+    # code_folding: hide
+    toc: no
+    # toc_depth: '4'
+    # toc_float: true
+    includes:
+     in_header: "metacrono.html"
+     # before_body = "header.html"
+     # after_body = "footer.html"
+---
+
+```{r setup, include=FALSE}
+library(tidyverse) # ggplot, dplyr...
+library(magrittr) # %>%
+library(knitr) # Dynamic report generation with R
+knitr::opts_chunk$set(
+	echo = FALSE,
+	out.width = "100%",
+	message = FALSE,
+	warning = FALSE,
+	cache = FALSE,
+	comment = NA,
+	dpi = 96,
+	prompt = FALSE,
+	results = "asis"
+)
+library(viridis) # Color palettes
+library(plotly) # Interactive graphics
+library(leaflet) # LeafletJS interface for R
+library(leaflet.providers) # Third-party tile providers
+library(leaflet.extras) # LeafletJS plugins
+library(rgdal) # R Geospatial' Data Abstraction Library
+library(sf) # Simple Features
+library(sp) # Classes and Methods for Spatial Data
+library(rnaturalearth) 
+library(rnaturalearthdata)
+library(geojsonio) # convert geographic data to GeoJSON and TopoJSON formats
+library(jsonlite) # A fast JSON parser and generator optimized for statistical data and the web
+library(raster) # Geographic Data Analysis and Modeling
+library(mapview) # for quick interactive maps
+library(shiny) # for web applications
+library(htmltools) # HTML generation and output
+library(htmlwidgets) # framework for creating HTML widgets
+library(kableExtra) # Easily insert FontAwesome icons into R Markdown docs and Shiny apps
+library(DT) # R interface to the JavaScript library DataTables 
+library(formattable) # Provides functions to create formattable vectors and data frames
+library(summarytools) # provides functions to summarize numerical and categorical data
+st_options(plain.ascii = FALSE, style = "rmarkdown", lang = "es", dfSummary.na.col = FALSE, headings = FALSE)
+library(timevis) # Create Interactive Timeline Visualizations in R
+```
+
+```{css colores, echo = FALSE}
+  
+  .vis-item.hitc { 
+    color: black;
+    background-color: DodgerBlue;
+    border-color: DodgerBlue }
+  .vis-item.hitc.vis-selected { background-color: Azure; }
+  
+  .vis-item.omsc {
+    color: black;
+    background-color: LimeGreen;
+    border-color: LimeGreen }
+  .vis-item.omsc.vis-selected { background-color: Azure; }
+  
+  .vis-item.espc {
+    color: black;
+    background-color: OrangeRed;
+    border-color: OrangeRed }
+  .vis-item.espc.vis-selected { background-color: Azure; }
+  
+  .vis-time-axis.vis-foreground { background-color: Aqua; }
+  
+  .vis-panel.vis-left {
+    font-weight: bold;
+    background-color: AliceBlue; }
+
+```
+
+## A vista de pájaro
+
+Este gráfico sólo muestra los principales hechos durante esta crisis epidemiológica, y sirve sólo para tener una visión general de la pandemia. Para profundizar se pueden consultar los enlaces de la sección siguiente.
+
+```{r crono, echo=FALSE}
+data <- data.frame(
+  id      = 1:18,
+  content = c(
+    "Primer caso confirmado (Wuhan)",  ### Hitos
+    "Cluster de neumonía en Wuhan",
+    "Primer fallecido en China",
+    "Secuenciación del genoma",
+    "Evidencias de transmisión entre humanos",
+    "Confinamiento en Hubei",
+    "Primer test PCR (Malasia)",
+    "Primer fallecido fuera de China",
+    "Nombre oficial del virus/enfermedad: SARS-CoV-2/COVID-19",
+    "Primer comité de emergencia",   ### OMS
+    "2º comité de emergencia",
+    "Declaración de pandemia",
+    "Primer caso confirmado", ### España
+    "Se suspende el MWC",
+    "Primer fallecido",
+    "8M",
+    "Declaración de Estado de Alarma",
+    "Confinamiento en España"
+    ),
+  start   = c("2019-11-17", "2019-12-31", "2020-01-11", "2020-01-12", "2020-01-22", "2020-01-23", "2020-01-24", "2020-02-2",  "2020-02-11", "2020-01-23", "2020-01-30", "2020-03-11", "2020-01-31", "2020-02-12", "2020-02-13", "2020-03-8" , "2020-03-13", "2020-03-14"),
+  end     = c( NA         , NA         , NA          , NA          , NA          , "2020-04-8", NA          , NA          , NA          , NA          , NA          , NA          , NA          , NA          ,      NA         , NA         , NA          , "2020-06-20"),
+  group = c(rep("hit",9), rep("oms",3), rep("esp",6)),
+  className = c(rep("hitc",9), rep("omsc",3), rep("espc",6))
+)
+
+groups <- data.frame(
+  id = c("hit", "oms", "esp"),
+  content = c("Hitos", "OMS", "España")
+  )
+
+timevis(data = data,
+        groups = groups,
+        options = list(
+                      showCurrentTime = FALSE,
+                      orientation = 'both',
+                      selectable = TRUE,
+                      clickToUse = TRUE,
+                      showWeekScale = TRUE
+                      )
+        )
+
+```
+
+## Enlaces
+
+
+

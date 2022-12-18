@@ -1,0 +1,490 @@
+---
+title: "Estudio de Seroprevalencia **`ENE-Covid19`**"
+author:
+- "[noSoloDatos](https://nosolodatos.netlify.com/)"
+lang: es-Es
+output:
+  html_document:
+    theme: paper
+    highlight: breezedark
+    self_contained: false
+    # code_folding: hide
+    toc: yes
+    toc_depth: '4'
+    # toc_float: true
+    includes:
+     in_header: "metaprev.html"
+     # before_body = "header.html"
+     # after_body = "footer.html"
+---
+
+```{r setup, include=FALSE}
+library(tidyverse) # ggplot, dplyr...
+library(magrittr) # %>%
+library(knitr) # Dynamic report generation with R
+knitr::opts_chunk$set(
+	echo = FALSE,
+	out.width = "100%",
+	message = FALSE,
+	warning = FALSE,
+	cache = FALSE,
+	comment = NA,
+	dpi = 96,
+	prompt = FALSE,
+	results = "asis"
+)
+library(viridis) # Color palettes
+library(plotly) # Interactive graphics
+library(leaflet) # LeafletJS interface for R
+library(leaflet.providers) # Third-party tile providers
+library(leaflet.extras) # LeafletJS plugins
+library(rgdal) # R Geospatial' Data Abstraction Library
+library(sf) # Simple Features
+library(sp) # Classes and Methods for Spatial Data
+library(rnaturalearth) 
+library(rnaturalearthdata)
+library(geojsonio) # convert geographic data to GeoJSON and TopoJSON formats
+library(jsonlite) # A fast JSON parser and generator optimized for statistical data and the web
+library(raster) # Geographic Data Analysis and Modeling
+library(mapview) # for quick interactive maps
+library(shiny) # for web applications
+library(htmltools) # HTML generation and output
+library(htmlwidgets) # framework for creating HTML widgets
+library(kableExtra) # Easily insert FontAwesome icons into R Markdown docs and Shiny apps
+library(DT) # R interface to the JavaScript library DataTables 
+library(formattable) # Provides functions to create formattable vectors and data frames
+library(summarytools) # provides functions to summarize numerical and categorical data
+st_options(plain.ascii = FALSE, style = "rmarkdown", lang = "es", dfSummary.na.col = FALSE, headings = FALSE)
+```
+
+## Información {.tabset .tabset-fade}
+
+### Presentación
+
+Del informe preliminar del **`13 de mayo de 2020`** ([**`PDF`**](https://www.ciencia.gob.es/stfls/MICINN/Ministerio/FICHEROS/ENECOVID_Informe_preliminar_cierre_primera_ronda_13Mayo2020.pdf)) correspondiente a la **Ronda `1/3`**:
+
+> ENE-Covid19 es un amplio estudio longitudinal sero-epidemiológico, de base poblacional, cuyos objetivos son estimar la prevalencia de infección por SARS-Cov2 mediante la determinación de anticuerpos frente al virus en España y evaluar su evolución temporal.
+
+> Los resultados presentados hoy, para la primera ronda se refieren a la lectura de la banda de IgG del test rápido, ya que sólo disponemos de resultados parciales del análisis por inmunoensayo.
+
+---
+
+### Fuentes
+
+- <i class="fab fa-github" style="color:deeppink; padding: 3px;"></i> Se han utilizado los datos proporcionados en el repositorio de [**`Datadista`**](https://github.com/datadista/datasets/tree/master/COVID%2019) 
+
+---
+
+## Mapa de seroprevalencia por provincias
+
+```{r prov}
+# prov <- readOGR("spain/prov.geojson", verbose = FALSE)
+prov <- geojsonio::geojson_read("spain/prov.geojson", what = "sp")
+
+### Actualización de datos
+preva1 <- read.csv("https://raw.githubusercontent.com/Eclectikus/COVID-19/master/data/prevalencia1.csv", encoding = "UTF-8") # Datos
+preva1 <- dplyr::arrange(preva1, preva1$id) # Orden por índices
+preva1_2 <- read.csv("https://raw.githubusercontent.com/Eclectikus/COVID-19/master/data/prevalencia1_2.csv", encoding = "UTF-8") # Datos
+preva1_2 <- dplyr::arrange(preva1_2, preva1_2$id) # Orden por índices
+colnames(preva1_2) <- c("ID", "Provincia", "Total", "Porc.Total","ICtMin", "ICtMax")
+preva2_1 <- read.csv("https://raw.githubusercontent.com/Eclectikus/COVID-19/master/data/prevalencia2_1.csv", encoding = "UTF-8") # Datos
+preva2_1 <- dplyr::arrange(preva2_1, preva2_1$id) # Orden por índices
+colnames(preva2_1) <- c("ID", "Provincia", "Total", "Porc.Total","ICtMin", "ICtMax","total_seroconversion_IgG", "porcentaje_seroconversion_IgG",	"total_IC_95%_minimo_seroconversion_IgG",	"total_IC_95%_maximo_seroconversion_IgG"
+)
+
+
+paltt1 <- colorNumeric("BuPu", c(0,15), reverse = FALSE) ## 
+# Popup label conf.  
+
+labels21 <- sprintf(
+  "<strong>Seroprevalencia (Ronda 2 - 3 de junio)</strong><br/><strong>%s</strong><hr/><strong>Total: %s</strong><br/>IC95 min: %s<br/>IC95 max: %s",
+  preva2_1$Provincia, preva2_1$Porc.Total, preva2_1$ICtMin, preva2_1$ICtMax) %>% lapply(htmltools::HTML)
+labels12 <- sprintf(
+  "<strong>Seroprevalencia (Ronda 1 - 3 de junio)</strong><br/><strong>%s</strong><hr/><strong>Total: %s</strong><br/>IC95 min: %s<br/>IC95 max: %s",
+  preva1_2$Provincia, preva1_2$Porc.Total, preva1_2$ICtMin, preva1_2$ICtMax) %>% lapply(htmltools::HTML)
+labels1 <- sprintf(
+  "<strong>Seroprevalencia (Ronda 1 - 13 de mayo)</strong><br/><strong>%s</strong><hr/><strong>Total: %s</strong><br/>Hombres: %s<br/>Mujeres: %s",
+  preva1$provincia, preva1$total_porcentaje, preva1$hombres_porcentaje, preva1$mujeres_porcentaje) %>% lapply(htmltools::HTML)
+
+####
+
+mapt <- leaflet() %>%
+  setView(lng = -4.41, lat = 39.63, zoom = 4) %>%
+  # setMaxBounds(lng1 = -19.482422, lat1 = 25.191689, lng2 = 20.156250, lat2 = 45.480676) %>%
+  
+  ## Base groups (datos)
+  addPolygons(data = prov, color = "dodgerblue", weight = 1.2, smoothFactor = 0.75, opacity = 0.9, fillOpacity = 0.6, fillColor = paltt1(preva2_1$Porc.Total), highlightOptions = highlightOptions(color = "chartreuse", weight = 1.8, bringToFront = TRUE, fillOpacity = 0.9), group = "Ronda 2 (3 de junio 2020)", label = labels21, labelOptions = labelOptions(
+    style = list("font-weight" = "normal", padding = "3px 6px"),
+    opacity = 0.75,
+    textsize = "12px",
+    direction = "auto")
+  ) %>%
+  addPolygons(data = prov, color = "dodgerblue", weight = 1.2, smoothFactor = 0.75, opacity = 0.9, fillOpacity = 0.6, fillColor = paltt1(preva1_2$Porc.Total), highlightOptions = highlightOptions(color = "chartreuse", weight = 1.8, bringToFront = TRUE, fillOpacity = 0.9), group = "Ronda 1 (Act. 3 de junio 2020)", label = labels12, labelOptions = labelOptions(
+    style = list("font-weight" = "normal", padding = "3px 6px"),
+    opacity = 0.75,
+    textsize = "12px",
+    direction = "auto")
+  ) %>%
+  addPolygons(data = prov, color = "dodgerblue", weight = 1.2, smoothFactor = 0.75, opacity = 0.9, fillOpacity = 0.6, fillColor = paltt1(preva1$total_porcentaje), highlightOptions = highlightOptions(color = "chartreuse", weight = 1.8, bringToFront = TRUE, fillOpacity = 0.9), group = "Ronda 1 (13 de mayo 2020)", label = labels1, labelOptions = labelOptions(
+    style = list("font-weight" = "normal", padding = "3px 6px"),
+    opacity = 0.75,
+    textsize = "12px",
+    direction = "auto")
+  ) %>%
+  
+  ## Overlay groups
+  addProviderTiles(providers$CartoDB.Positron, group = "CartoDB Positron") %>%
+  addProviderTiles(providers$CartoDB.DarkMatter, group = "Claro / Oscuro") %>%
+  
+  # static info
+  addLegend("topleft", pal = paltt1, values = preva2_1$Porc.Total,
+    title = "Prevalencia (%)",
+    opacity = 0.9
+  ) %>%
+  
+  # Layers control
+  addLayersControl(
+    baseGroups = c("Ronda 2 (3 de junio 2020)", "Ronda 1 (Act. 3 de junio 2020)", "Ronda 1 (13 de mayo 2020)"),
+    overlayGroups = 
+      c("Claro / Oscuro"),
+    options = layersControlOptions(position = "bottomright", collapsed = FALSE)
+  ) %>%
+  
+  ## Plugin: Leaflet.EasyButton
+  addEasyButton(easyButton(
+    icon = "fa-home", title = "Mapa inicial",
+    onClick = JS("function(btn, map){ map.setZoom(4); }"))
+  ) %>%
+  addEasyButton(easyButton(
+    icon = "fa-map-pin", title = "Localízame",
+    onClick = JS("function(btn, map){ map.locate({setView: true}); }"))
+    ) %>%
+  
+  ## Plugin: Leaflet.fullscreen
+  addFullscreenControl(position = "topright", pseudoFullscreen = TRUE)
+
+mapt
+```
+
+## Tablas
+
+### Ronda 2 (3 de junio de 2020)
+
+```{r TabR21}
+preva <- read.csv("https://raw.githubusercontent.com/Eclectikus/COVID-19/master/data/prevalencia2_1.csv", encoding = "UTF-8")
+prevat <- preva[c(2,3,4,7,8)]
+
+colnames(prevat) <- c("Provincia", "Total", "Porc.Total", "Total.Seroconversion.IgG", "Porc.Seroconversion.IgG")
+
+datatable(prevat, options = list(
+  dom = 't',
+  order = list(3, 'desc'),
+  language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json'),
+  columnDefs = list(list(className = 'dt-center', targets = 5)),
+  pageLength = 52
+  )) %>%
+  formatStyle(names(prevat),
+    color = 'darkblue',
+    fontWeight = 'bold') %>%
+  formatStyle("Porc.Total",
+    background = styleColorBar(range(prevat$Porc.Total), 'mediumpurple'),
+    backgroundSize = '90% 60%',
+    backgroundRepeat = 'no-repeat',
+    backgroundPosition = 'center'
+      ) %>%
+  formatStyle(names(prevat),
+    color = 'darkblue',
+    fontWeight = 'bold') %>%
+  formatStyle("Porc.Seroconversion.IgG",
+    background = styleColorBar(range(prevat$Porc.Seroconversion.IgG), 'blue'),
+    backgroundSize = '90% 60%',
+    backgroundRepeat = 'no-repeat',
+    backgroundPosition = 'center'
+      ) %>%
+  formatStyle(names(prevat),
+    color = 'darkblue',
+    fontWeight = 'bold') 
+```
+
+### Ronda 1 (Act. 3 de junio de 2020)
+
+```{r TabR12}
+preva <- read.csv("https://raw.githubusercontent.com/Eclectikus/COVID-19/master/data/prevalencia1_2.csv", encoding = "UTF-8")
+prevat <- preva[c(2,3,4)]
+
+colnames(prevat) <- c("Provincia", "Población", "Porcentaje")
+
+datatable(prevat, options = list(
+  dom = 't',
+  order = list(3, 'desc'),
+  language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json'),
+  columnDefs = list(list(className = 'dt-center', targets = 3)),
+  pageLength = 52
+  )) %>%
+  formatStyle(names(prevat),
+    color = 'darkblue',
+    fontWeight = 'bold') %>%
+  formatStyle("Porcentaje",
+    background = styleColorBar(range(prevat$Porcentaje), 'mediumpurple'),
+    backgroundSize = '90% 60%',
+    backgroundRepeat = 'no-repeat',
+    backgroundPosition = 'center'
+      ) %>%
+  formatStyle(names(prevat),
+    color = 'darkblue',
+    fontWeight = 'bold') %>%
+  formatStyle(names(prevat),
+    color = 'darkblue',
+    fontWeight = 'bold') 
+```
+
+### Ronda 1 (13 de mayo de 2020)
+
+```{r TabR11}
+preva <- read.csv("https://raw.githubusercontent.com/Eclectikus/COVID-19/master/data/prevalencia1.csv", encoding = "UTF-8")
+prevat <- preva[c(2,3,4,7,8,11,12)]
+
+colnames(prevat) <- c("Provincia", "Población", "Porcentaje","Población hombres", "Porcentaje_H","Población mujeres", "Porcentaje_M")
+
+datatable(prevat, options = list(
+  dom = 't',
+  order = list(3, 'desc'),
+  language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json'),
+  columnDefs = list(list(className = 'dt-center', targets = 7)),
+  pageLength = 52
+  )) %>%
+  formatStyle(names(prevat),
+    color = 'darkblue',
+    fontWeight = 'bold') %>%
+  formatStyle("Porcentaje",
+    background = styleColorBar(range(prevat$Porcentaje), 'mediumpurple'),
+    backgroundSize = '90% 60%',
+    backgroundRepeat = 'no-repeat',
+    backgroundPosition = 'center'
+      ) %>%
+  formatStyle(names(prevat),
+    color = 'darkblue',
+    fontWeight = 'bold') %>%
+  formatStyle("Porcentaje_H",
+    background = styleColorBar(range(prevat$Porcentaje_H), 'blue'),
+    backgroundSize = '90% 60%',
+    backgroundRepeat = 'no-repeat',
+    backgroundPosition = 'center'
+      ) %>%
+  formatStyle(names(prevat),
+    color = 'darkblue',
+    fontWeight = 'bold') %>%
+  formatStyle("Porcentaje_M",
+    background = styleColorBar(range(prevat$Porcentaje_M), 'deeppink'),
+    backgroundSize = '90% 60%',
+    backgroundRepeat = 'no-repeat',
+    backgroundPosition = 'center'
+      )
+```
+
+## Intervalos de confianza
+
+### Ronda 2
+
+#### <span style="color: mediumpurple;">**`Total`** 3 de junio de 2020</span>
+
+```{r CItot21, echo=FALSE}
+preva <- read.csv("https://raw.githubusercontent.com/Eclectikus/COVID-19/master/data/prevalencia2_1.csv", encoding = "UTF-8")
+prevat <- preva[c(2,4,5,6)]
+
+colnames(prevat) <- c("Provincia", "PrevalenciaT", "ICtMin", "ICtMax")
+
+p <- ggplot(prevat, aes(x = Provincia, y = PrevalenciaT)) + 
+  geom_bar(stat = "identity", color = "mediumpurple", fill = "magenta", width = .75) + 
+           # position = position_dodge()) +
+  geom_errorbar(aes(ymin = ICtMin, ymax = ICtMax), color = "dimgrey", width = .12) +
+                 # position = position_dodge(.9)) 
+  labs(title = "Prevalencia e intervalos de confianza", x = "Provincia", y = "Prevalencia (%)") +
+   theme_classic() +
+   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+   # scale_fill_manual(values = c('#999999','#E69F00'))
+ggplotly(p) %>% 
+  config(displaylogo = FALSE, locale = 'es',
+              #collaborate = FALSE,
+              modeBarButtonsToRemove = list(
+              # 'sendDataToCloud',
+              # 'toImage',
+              # 'autoScale2d',
+              'hoverCompareCartesian',
+              'pan2d',
+              'resetScale2d',
+              'toggleSpikelines',
+              'lasso2d',
+              'select2d'
+              )
+        )
+```
+
+#### <span style="color: darkorange;">**`Seroconversión IgG+`** 3 de junio de 2020</span>
+
+```{r Seroconv21, echo=FALSE}
+preva <- read.csv("https://raw.githubusercontent.com/Eclectikus/COVID-19/master/data/prevalencia2_1.csv", encoding = "UTF-8", header = TRUE)
+prevat <- preva[c(2,8,9,10)]
+
+colnames(prevat) <- c("Provincia", "Seroconv.IgG", "IC95tMin", "IC95tMax")
+
+p <- ggplot(prevat, aes(x = Provincia, y = Seroconv.IgG)) + 
+  geom_bar(stat = "identity", color = "darkorange3", fill = "darkorange", width = .75) + 
+  geom_errorbar(aes(ymin = IC95tMin, ymax = IC95tMax), color = "dimgrey", width = .12) +
+  labs(title = "Seroconversión IgG+ e intervalos de confianza", x = "Provincia", y = "Seroconversión IgG+ (%)") +
+   theme_classic() +
+   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ggplotly(p) %>% 
+  config(displaylogo = FALSE, locale = 'es',
+              # collaborate = FALSE,
+              modeBarButtonsToRemove = list(
+              # 'sendDataToCloud',
+              # 'toImage',
+              # 'autoScale2d',
+              'hoverCompareCartesian',
+              'pan2d',
+              'resetScale2d',
+              'toggleSpikelines',
+              'lasso2d',
+              'select2d'
+              )
+        )
+```
+
+### Ronda 1
+
+#### <span style="color: mediumpurple;">**`Total`** Act. 3 de junio de 2020</span>
+
+```{r CItot12}
+preva <- read.csv("https://raw.githubusercontent.com/Eclectikus/COVID-19/master/data/prevalencia1_2.csv", encoding = "UTF-8")
+prevat <- preva[c(2,4,5,6)]
+
+colnames(prevat) <- c("Provincia", "PrevalenciaT", "ICtMin", "ICtMax")
+
+p <- ggplot(prevat, aes(x = Provincia, y = PrevalenciaT)) + 
+  geom_bar(stat = "identity", color = "mediumpurple", fill = "magenta", width = .75) + 
+           # position = position_dodge()) +
+  geom_errorbar(aes(ymin = ICtMin, ymax = ICtMax), color = "dimgrey", width = .12) +
+                 # position = position_dodge(.9)) 
+  labs(title = "Prevalencia e intervalos de confianza", x = "Provincia", y = "Prevalencia (%)") +
+   theme_classic() +
+   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+   # scale_fill_manual(values = c('#999999','#E69F00'))
+ggplotly(p) %>% 
+  config(displaylogo = FALSE, locale = 'es',
+              #collaborate = FALSE,
+              modeBarButtonsToRemove = list(
+              # 'sendDataToCloud',
+              # 'toImage',
+              # 'autoScale2d',
+              'hoverCompareCartesian',
+              'pan2d',
+              'resetScale2d',
+              'toggleSpikelines',
+              'lasso2d',
+              'select2d'
+              )
+        )
+```
+
+#### <span style="color: mediumpurple;">**`Total`** 13 de mayo de 2020</span>
+
+```{r CItot11}
+preva <- read.csv("https://raw.githubusercontent.com/Eclectikus/COVID-19/master/data/prevalencia1.csv", encoding = "UTF-8")
+prevat <- preva[c(2,4,5,6)]
+
+colnames(prevat) <- c("Provincia", "PrevalenciaT", "ICtMin", "ICtMax")
+
+p <- ggplot(prevat, aes(x = Provincia, y = PrevalenciaT)) + 
+  geom_bar(stat = "identity", color = "mediumpurple", fill = "magenta", width = .75) + 
+           # position = position_dodge()) +
+  geom_errorbar(aes(ymin = ICtMin, ymax = ICtMax), color = "dimgrey", width = .12) +
+                 # position = position_dodge(.9)) 
+  labs(title = "Prevalencia e intervalos de confianza", x = "Provincia", y = "Prevalencia (%)") +
+   theme_classic() +
+   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+   # scale_fill_manual(values = c('#999999','#E69F00'))
+ggplotly(p) %>% 
+  config(displaylogo = FALSE, locale = 'es',
+              #collaborate = FALSE,
+              modeBarButtonsToRemove = list(
+              # 'sendDataToCloud',
+              # 'toImage',
+              # 'autoScale2d',
+              'hoverCompareCartesian',
+              'pan2d',
+              'resetScale2d',
+              'toggleSpikelines',
+              'lasso2d',
+              'select2d'
+              )
+        )
+```
+
+#### <span style="color: blue;">**`Hombres`**</span>
+
+```{r CIhom}
+preva <- read.csv("https://raw.githubusercontent.com/Eclectikus/COVID-19/master/data/prevalencia1.csv", encoding = "UTF-8")
+prevat <- preva[c(2,8,9,10)]
+
+colnames(prevat) <- c("Provincia", "PrevalenciaH", "IChMin", "IChMax")
+
+p <- ggplot(prevat, aes(x = Provincia, y = PrevalenciaH)) + 
+  geom_bar(stat = "identity", color = "blue", fill = "cyan", width = .75) + 
+           # position = position_dodge()) +
+  geom_errorbar(aes(ymin = IChMin, ymax = IChMax), color = "dimgrey", width = .12) +
+                 # position = position_dodge(.9)) 
+  labs(title = "Prevalencia e intervalos de confianza", x = "Provincia", y = "Prevalencia (%)") +
+   theme_classic() +
+   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+   # scale_fill_manual(values = c('#999999','#E69F00'))
+ggplotly(p) %>% 
+  config(displaylogo = FALSE, locale = 'es',
+              #collaborate = FALSE,
+              modeBarButtonsToRemove = list(
+              # 'sendDataToCloud',
+              # 'toImage',
+              # 'autoScale2d',
+              'hoverCompareCartesian',
+              'pan2d',
+              'resetScale2d',
+              'toggleSpikelines',
+              'lasso2d',
+              'select2d'
+              )
+        )
+```
+
+#### <span style="color: deeppink;">**`Mujeres`**</span>
+
+```{r CImuj}
+preva <- read.csv("https://raw.githubusercontent.com/Eclectikus/COVID-19/master/data/prevalencia1.csv", encoding = "UTF-8")
+prevat <- preva[c(2,12,13,14)]
+
+colnames(prevat) <- c("Provincia", "PrevalenciaM", "ICmMin", "ICmMax")
+
+p <- ggplot(prevat, aes(x = Provincia, y = PrevalenciaM)) + 
+  geom_bar(stat = "identity", color = "deeppink", fill = "pink", width = .75) + 
+           # position = position_dodge()) +
+  geom_errorbar(aes(ymin = ICmMin, ymax = ICmMax), color = "dimgrey", width = .12) +
+                 # position = position_dodge(.9)) 
+  labs(title = "Prevalencia e intervalos de confianza", x = "Provincia", y = "Prevalencia (%)") +
+   theme_classic() +
+   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+   # scale_fill_manual(values = c('#999999','#E69F00'))
+ggplotly(p) %>% 
+  config(displaylogo = FALSE, locale = 'es',
+              #collaborate = FALSE,
+              modeBarButtonsToRemove = list(
+              # 'sendDataToCloud',
+              # 'toImage',
+              # 'autoScale2d',
+              'hoverCompareCartesian',
+              'pan2d',
+              'resetScale2d',
+              'toggleSpikelines',
+              'lasso2d',
+              'select2d'
+              )
+        )
+```
