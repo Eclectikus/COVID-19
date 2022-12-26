@@ -16,7 +16,8 @@ noSoloDatos
 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/deed.es%20target=%22_blank%22)
 
 :new: Liberado todo el [código -
-RMarkdown/HTML](https://github.com/Eclectikus/COVID-19/tree/master/code)
+RMarkdown/HTML](https://github.com/Eclectikus/COVID-19/tree/master/code).
+Navidades 2022.
 
 ![2019_nCoV](https://github.com/Eclectikus/COVID-19/blob/master/img/2019_nCoV600x.png "2019_nCoV")
 
