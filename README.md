@@ -1,6 +1,6 @@
 COVID-19
 ================
-Joanh
+noSoloDatos
 2022-12-26
 
 - <a href="#covid-19" id="toc-covid-19">COVID-19</a>
@@ -15,10 +15,10 @@ Joanh
 [![License: CC BY
 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/deed.es%20target=%22_blank%22)
 
-![2019_nCoV](https://github.com/Eclectikus/COVID-19/blob/master/img/2019_nCoV600x.png "2019_nCoV")
+:new: [Todo el código -
+RMarkdown/HTML](https://github.com/Eclectikus/COVID-19/tree/master/code)
 
-> :information_source: [Código -
-> RMarkdown/HTML](https://github.com/Eclectikus/COVID-19/tree/master/code).
+![2019_nCoV](https://github.com/Eclectikus/COVID-19/blob/master/img/2019_nCoV600x.png "2019_nCoV")
 
 # COVID-19
 

@@ -1,6 +1,7 @@
 ---
 title: "COVID-19"
-author: "Joanh"
+author: "noSoloDatos"
+abstract: "Recopilación y digitalización de los datos oficiales sobre **COVID-19** entre el 5 de marzo y el 5 de junio de 2020" 
 date: "2022-12-26"
 output:
   github_document:
@@ -10,9 +11,9 @@ output:
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/deed.es target="_blank")
 
-![2019_nCoV](https://github.com/Eclectikus/COVID-19/blob/master/img/2019_nCoV600x.png "2019_nCoV")
+:new: [Todo el código - RMarkdown/HTML](https://github.com/Eclectikus/COVID-19/tree/master/code)
 
-> :information_source: [Código - RMarkdown/HTML](https://github.com/Eclectikus/COVID-19/tree/master/code).
+![2019_nCoV](https://github.com/Eclectikus/COVID-19/blob/master/img/2019_nCoV600x.png "2019_nCoV")
 
 # COVID-19
 
