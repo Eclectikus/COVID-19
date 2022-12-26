@@ -13,11 +13,11 @@ noSoloDatos
   - <a href="#datos-globales" id="toc-datos-globales">Datos globales</a>
 
 [![License: CC BY
-4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/deed.es%20target=%22_blank%22)
+4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/deed.es;%20target=%22_blank%22)
 [![Not
-Maintained](https://img.shields.io/badge/Maintenance%20Level-Not%20Maintained-yellow.svg)](https://gist.github.com/cheerfulstoic/d107229326a01ff0f333a1d3476e068d%20target=%22_blank%22)
+Maintained](https://img.shields.io/badge/Maintenance%20Level-Not%20Maintained-yellow.svg)](https://gist.github.com/cheerfulstoic/d107229326a01ff0f333a1d3476e068d;%20target=%22_blank%22)
 
-:new: Liberado todo el [código -
+:new: Liberado completamente el [código -
 RMarkdown/HTML](https://github.com/Eclectikus/COVID-19/tree/master/code).
 :christmas_tree: Navidades 2022. :christmas_tree:
 
