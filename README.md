@@ -1,6 +1,7 @@
-COVID-19 - noSoloDatos
+COVID-19
 ================
-**2020-03-05 al 2020-06-05**
+**noSoloDatos**
+Del `5 de marzo` al `5 de junio de 2020`
 
 - <a href="#covid-19" id="toc-covid-19">COVID-19</a>
   - <a href="#visualizaciones" id="toc-visualizaciones">Visualizaciones</a>
@@ -17,9 +18,9 @@ COVID-19 - noSoloDatos
 [![Not
 Maintained](https://img.shields.io/badge/Maintenance%20Level-Not%20Maintained-yellow.svg)](https://gist.github.com/cheerfulstoic/d107229326a01ff0f333a1d3476e068d;%20target=%22_blank%22)
 
-**Datos públicos oficiales sobre la epidemia de Coronavirus COVID-19
-recolectados diariamente para su proceso y visualización en
-`noSoloDatos`**
+> Datos públicos oficiales sobre la pandemia de **Coronavirus**
+> `COVID-19`, recolectados diariamente para su proceso y visualización
+> en **`noSoloDatos`**
 
 :new: Liberado completamente el [código -
 RMarkdown/HTML](https://github.com/Eclectikus/COVID-19/tree/master/code).
