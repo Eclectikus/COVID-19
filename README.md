@@ -1,7 +1,7 @@
 COVID-19
 ================
 noSoloDatos
-2022-12-26
+2020-03-05 al 2020-06-05
 
 - <a href="#covid-19" id="toc-covid-19">COVID-19</a>
   - <a href="#datos" id="toc-datos">Datos</a>
