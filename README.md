@@ -3,6 +3,7 @@ COVID-19 - noSoloDatos
 **2020-03-05 al 2020-06-05**
 
 - <a href="#covid-19" id="toc-covid-19">COVID-19</a>
+  - <a href="#visualizaciones" id="toc-visualizaciones">Visualizaciones</a>
   - <a href="#datos" id="toc-datos">Datos</a>
     - <a href="#incidencia-por-comunidades-autónomas"
       id="toc-incidencia-por-comunidades-autónomas">Incidencia por Comunidades
@@ -16,6 +17,10 @@ COVID-19 - noSoloDatos
 [![Not
 Maintained](https://img.shields.io/badge/Maintenance%20Level-Not%20Maintained-yellow.svg)](https://gist.github.com/cheerfulstoic/d107229326a01ff0f333a1d3476e068d;%20target=%22_blank%22)
 
+**Datos públicos oficiales sobre la epidemia de Coronavirus COVID-19
+recolectados diariamente para su proceso y visualización en
+`noSoloDatos`**
+
 :new: Liberado completamente el [código -
 RMarkdown/HTML](https://github.com/Eclectikus/COVID-19/tree/master/code).
 :christmas_tree: Navidades 2022. :christmas_tree:
@@ -24,8 +29,7 @@ RMarkdown/HTML](https://github.com/Eclectikus/COVID-19/tree/master/code).
 
 # COVID-19
 
-Datos públicos oficiales sobre la epidemia de Coronavirus COVID-19
-recolectados para su proceso y visualización en **`noSoloDatos`**:
+## Visualizaciones
 
 - <s>[**Seguimiento del
   COVID-19**](https://nosolodatos.netlify.com/es/covid19/coronavirus)</s>.
