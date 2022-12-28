@@ -10,13 +10,15 @@ output:
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/deed.es; target="_blank") [![Not Maintained](https://img.shields.io/badge/Maintenance%20Level-Not%20Maintained-yellow.svg)](https://gist.github.com/cheerfulstoic/d107229326a01ff0f333a1d3476e068d; target="_blank")
 
-> Minería de datos públicos oficiales sobre la pandemia de **Coronavirus** `COVID-19`, recolectados diariamente para su proceso y visualización en **`noSoloDatos`**, durante las primeras fases de la pandemia en España y en el Mundo.
+# COVID-19
+
+```{r, echo=FALSE, out.width="50%"}
+knitr::include_graphics("https://github.com/Eclectikus/COVID-19/blob/master/img/2019_nCoV600x.png")
+```
+
+> Minería de los datos públicos oficiales durante las primeras fases de la pandemia de **Coronavirus** `COVID-19`, recolectados diariamente para su proceso y visualización en **`noSoloDatos`**.
 
 :new: Liberado completamente el [código - RMarkdown/HTML](https://github.com/Eclectikus/COVID-19/tree/master/code). :christmas_tree:	 Navidades 2022. :christmas_tree:	
-
-![2019_nCoV](https://github.com/Eclectikus/COVID-19/blob/master/img/2019_nCoV600x.png "2019_nCoV")
-
-# COVID-19
 
 ## Visualizaciones
 

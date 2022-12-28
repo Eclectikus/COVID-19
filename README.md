@@ -18,18 +18,17 @@ Del `5 de marzo` al `5 de junio de 2020`
 [![Not
 Maintained](https://img.shields.io/badge/Maintenance%20Level-Not%20Maintained-yellow.svg)](https://gist.github.com/cheerfulstoic/d107229326a01ff0f333a1d3476e068d;%20target=%22_blank%22)
 
-> Minería de datos públicos oficiales sobre la pandemia de
-> **Coronavirus** `COVID-19`, recolectados diariamente para su proceso y
-> visualización en **`noSoloDatos`**, durante las primeras fases de la
-> pandemia en España y en el Mundo.
+# COVID-19
+
+<img src="https://github.com/Eclectikus/COVID-19/blob/master/img/2019_nCoV600x.png" width="50%" />
+
+> Minería de los datos públicos oficiales durante las primeras fases de
+> la pandemia de **Coronavirus** `COVID-19`, recolectados diariamente
+> para su proceso y visualización en **`noSoloDatos`**.
 
 :new: Liberado completamente el [código -
 RMarkdown/HTML](https://github.com/Eclectikus/COVID-19/tree/master/code).
 :christmas_tree: Navidades 2022. :christmas_tree:
-
-![2019_nCoV](https://github.com/Eclectikus/COVID-19/blob/master/img/2019_nCoV600x.png "2019_nCoV")
-
-# COVID-19
 
 ## Visualizaciones
 
