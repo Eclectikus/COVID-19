@@ -33,7 +33,7 @@ RMarkdown/HTML](https://github.com/Eclectikus/COVID-19/tree/master/code).
 ## Visualizaciones
 
 - <s>[**Seguimiento del
-  COVID-19**](https://nosolodatos.netlify.com/es/covid19/coronavirus)</s>.
+  COVID-19**](https://nosolodatos.netlify.app/es/covid19/coronavirus)</s>.
   Esta página recopila los datos oficiales principales (casos
   confirmados, fallecidos, hospitalizados, UCIs…) por CCAA entre el
   **`5 de marzo de 2020`** y el **`5 de junio de 2020`**. \[Problemas en
