@@ -28,18 +28,18 @@ Maintained](https://img.shields.io/badge/Maintenance%20Level-Not%20Maintained-ye
 
 :new: Liberado completamente el [código -
 RMarkdown/HTML](https://github.com/Eclectikus/COVID-19/tree/master/code).
-:christmas_tree: Navidades 2022. :christmas_tree:
+🎄- Navidades 2022.
 
 ## Visualizaciones
 
-- <s>[**Seguimiento del
-  COVID-19**](https://nosolodatos.netlify.app/es/covid19/coronavirus)</s>.
+- [**Seguimiento del
+  COVID-19**](https://nosolodatos.netlify.app/es/covid19/coronavirus).
   Esta página recopila los datos oficiales principales (casos
   confirmados, fallecidos, hospitalizados, UCIs…) por CCAA entre el
-  **`5 de marzo de 2020`** y el **`5 de junio de 2020`**. \[Problemas en
+  **`5 de marzo de 2020`** y el **`5 de junio de 2020`**. <s>\[Problemas en
   el enlace original por conflictos entre librerías tal como se procesan
   en *Hugo* / *Netlify*, me obliga a re-publicar la página en *Amazon
-  S3*: [**Seguimiento del
+  S3*]</s>. `Mantengo el despliegue en Amazon a modo de backup`: [**Seguimiento del
   COVID-19**](https://nosolodatos.page.link/covid19)\]
 - [**Series temporales
   COVID-19**](https://eclectikus.github.io/jhutimeseries/). Esta página
